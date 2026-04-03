@@ -1,0 +1,35 @@
+{
+  "name": "rest-projekt-zaliczeniowy",
+  "version": "1.0.0",
+  "description": "Projekt zaliczeniowy na przedmiot Tworzenie usług sieciowych w architekturze REST",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dawid20041/rest-projekt-zaliczeniowy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Dawid20041/rest-projekt-zaliczeniowy/issues"
+  },
+  "homepage": "https://github.com/Dawid20041/rest-projekt-zaliczeniowy#readme",
+  "dependencies": {
+    "@prisma/client": "^7.6.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.0",
+    "express": "^5.2.1",
+    "prisma": "^7.6.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
