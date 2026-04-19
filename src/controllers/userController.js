@@ -1,18 +1,13 @@
-const userService = require('../services/userService');
+const userService = require('../services/userService')
 
-const register = async (req, res) => {
-  try {
-    const user = await userService.registerUser(req.body);
-    const { password, ...safeUser } = user; // nigdy nie zwracaj hasła
-    res.status(201).json(safeUser);
-  } catch (err) {
-    res.status(err.status || 500).json({ error: err.message });
-  }
-};
 exports.createUser = async (req, res) => {
     try {
         const user = await userService.createUser(req.body)
-        res.status(201).json(user)
+
+        // opcjonalnie ukryj hasło jeśli dodasz je później
+        const { password, ...safeUser } = user
+
+        res.status(201).json(safeUser)
     } catch (err) {
         res.status(400).json({ error: err.message })
     }
@@ -46,4 +41,3 @@ exports.deleteUser = async (req, res) => {
     await userService.deleteUser(req.params.id)
     res.status(204).send()
 }
-module.exports = { register };
