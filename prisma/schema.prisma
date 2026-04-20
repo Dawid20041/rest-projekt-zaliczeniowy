@@ -1,9 +1,7 @@
-<<<<<<< Updated upstream
-=======
 model User {
   id       Int    @id @default(autoincrement())
   username String
   email    String @unique
   password String?
 }
->>>>>>> Stashed changes
+
