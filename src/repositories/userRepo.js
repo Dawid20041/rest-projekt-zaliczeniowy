@@ -1,24 +1,36 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const prisma = require('../config/prisma')
 
-const createUser = async (data) => {
-  return prisma.user.create({ data });
-};
+const createUser = (data) => {
+  return prisma.user.create({ data })
+}
 
-const getUserById = async (id) => {
-  return prisma.user.findUnique({ where: { id } });
-};
+const getUserById = (id) => {
+  return prisma.user.findUnique({
+    where: { id: Number(id) }
+  })
+}
 
-const getAllUsers = async () => {
-  return prisma.user.findMany();
-};
+const getAllUsers = () => {
+  return prisma.user.findMany()
+}
 
-const updateUser = async (id, data) => {
-  return prisma.user.update({ where: { id }, data });
-};
+const updateUser = (id, data) => {
+  return prisma.user.update({
+    where: { id: Number(id) },
+    data
+  })
+}
 
-const deleteUser = async (id) => {
-  return prisma.user.delete({ where: { id } });
-};
+const deleteUser = (id) => {
+  return prisma.user.delete({
+    where: { id: Number(id) }
+  })
+}
 
-module.exports = { createUser, getUserById, getAllUsers, updateUser, deleteUser };
+module.exports = {
+  createUser,
+  getUserById,
+  getAllUsers,
+  updateUser,
+  deleteUser
+}

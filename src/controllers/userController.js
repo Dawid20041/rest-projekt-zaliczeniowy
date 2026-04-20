@@ -4,8 +4,7 @@ exports.createUser = async (req, res) => {
     try {
         const user = await userService.createUser(req.body)
 
-        // opcjonalnie ukryj hasło jeśli dodasz je później
-        const { password, ...safeUser } = user
+        const { password, ...safeUser } = user || {}
 
         res.status(201).json(safeUser)
     } catch (err) {
@@ -14,18 +13,26 @@ exports.createUser = async (req, res) => {
 }
 
 exports.getAllUsers = async (req, res) => {
-    const users = await userService.getAllUsers()
-    res.json(users)
+    try {
+        const users = await userService.getAllUsers()
+        res.json(users)
+    } catch (err) {
+        res.status(500).json({ error: err.message })
+    }
 }
 
 exports.getUser = async (req, res) => {
-    const user = await userService.getUser(req.params.id)
+    try {
+        const user = await userService.getUser(req.params.id)
 
-    if (!user) {
-        return res.status(404).json({ message: "User not found" })
+        if (!user) {
+            return res.status(404).json({ message: "User not found" })
+        }
+
+        res.json(user)
+    } catch (err) {
+        res.status(500).json({ error: err.message })
     }
-
-    res.json(user)
 }
 
 exports.updateUser = async (req, res) => {
@@ -38,6 +45,10 @@ exports.updateUser = async (req, res) => {
 }
 
 exports.deleteUser = async (req, res) => {
-    await userService.deleteUser(req.params.id)
-    res.status(204).send()
+    try {
+        await userService.deleteUser(req.params.id)
+        res.status(204).send()
+    } catch (err) {
+        res.status(400).json({ error: err.message })
+    }
 }
