@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const userRepo = require('../repositories/userRepository')
+const userRepo = require('../repositories/userRepo')
 
 const createUser = async ({ username, email, password }) => {
     if (!username || !email) {
