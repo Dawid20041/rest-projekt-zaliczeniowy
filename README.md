@@ -18,23 +18,40 @@ Projekt wykorzystuje następujące technologie:
 
 ---
 
-# Funkcjonalności
+# Aktualnie zaimplementowane funkcjonalności
 
-## Aktualnie zaimplementowano
+## Users
 
-- zarządzanie użytkownikami
-- REST API
-- dokumentację Swagger
-- architekturę warstwową
-- integrację z bazą danych SQLite
+- tworzenie użytkownika
+- pobieranie wszystkich użytkowników
+- pobieranie użytkownika po ID
+- edycja użytkownika
+- usuwanie użytkownika
+- hashowanie haseł przy użyciu bcrypt
 
-## Planowane funkcjonalności
+## Auctions
 
 - tworzenie aukcji
-- przeglądanie aukcji
+- pobieranie wszystkich aukcji
+- pobieranie aukcji po ID
+- edycja aukcji
+- usuwanie aukcji
+
+## Swagger / OpenAPI
+
+- dokumentacja endpointów
+- możliwość testowania API z poziomu Swagger UI
+
+---
+
+# Planowane funkcjonalności
+
 - składanie ofert (licytacja)
 - historia ofert
 - filtrowanie aukcji
+- sortowanie aukcji
+- autoryzacja JWT
+- frontend aplikacji
 
 ---
 
@@ -42,7 +59,9 @@ Projekt wykorzystuje następujące technologie:
 
 Projekt wykorzystuje architekturę warstwową:
 
+```txt
 Controller → Service → Repository → Database
+```
 
 ## Opis warstw
 
@@ -137,7 +156,7 @@ PUT /user/:id
 DELETE /user/:id
 ```
 
-## Auctions (planowane)
+## Auctions
 
 ```http
 POST /auctions
@@ -151,6 +170,7 @@ DELETE /auctions/:id
 
 ```http
 POST /auctions/:id/bids
+GET /auctions/:id/bids
 ```
 
 ---
