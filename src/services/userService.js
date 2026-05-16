@@ -27,11 +27,11 @@ const createUser = async ({ username, email, password }) => {
 }
 
 const getAllUsers = async () => {
-    return userRepo.getAllUsers()
+    return await userRepo.getAllUsers()
 }
 
 const getUser = async (id) => {
-    return userRepo.getUserById(Number(id))
+    return await userRepo.getUserById(Number(id))
 }
 
 const updateUser = async (id, data) => {
@@ -39,11 +39,11 @@ const updateUser = async (id, data) => {
         data.password = await bcrypt.hash(data.password, 10)
     }
 
-    return userRepo.updateUser(Number(id), data)
+    return await userRepo.updateUser(Number(id), data)
 }
 
 const deleteUser = async (id) => {
-    return userRepo.deleteUser(Number(id))
+    return await userRepo.deleteUser(Number(id))
 }
 
 module.exports = {
