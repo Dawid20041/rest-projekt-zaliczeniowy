@@ -20,7 +20,7 @@ Projekt wykorzystuje następujące technologie:
 
 # Funkcjonalności
 
-Aktualnie zaimplementowano:
+## Aktualnie zaimplementowano
 
 - zarządzanie użytkownikami
 - REST API
@@ -28,7 +28,7 @@ Aktualnie zaimplementowano:
 - architekturę warstwową
 - integrację z bazą danych SQLite
 
-Planowane funkcjonalności:
+## Planowane funkcjonalności
 
 - tworzenie aukcji
 - przeglądanie aukcji
@@ -44,7 +44,7 @@ Projekt wykorzystuje architekturę warstwową:
 
 Controller → Service → Repository → Database
 
-Opis warstw:
+## Opis warstw
 
 - **Controller** – obsługa zapytań HTTP
 - **Service** – logika biznesowa
@@ -68,69 +68,129 @@ prisma
 └── schema.prisma
 
 server.js
-Instalacja
-1. Sklonuj repozytorium
+```
+
+---
+
+# Instalacja
+
+## 1. Sklonuj repozytorium
+
+```bash
 git clone <repo-url>
 cd <repo-folder>
-2. Zainstaluj zależności
+```
+
+## 2. Zainstaluj zależności
+
+```bash
 npm install
-3. Wygeneruj Prisma Client
+```
+
+## 3. Wygeneruj Prisma Client
+
+```bash
 npx prisma generate
-4. Utwórz bazę danych
+```
+
+## 4. Utwórz bazę danych
+
+```bash
 npx prisma db push
-5. Uruchom aplikację
+```
+
+## 5. Uruchom aplikację
+
+```bash
 npm run dev
+```
 
 Serwer uruchomi się pod adresem:
 
+```txt
 http://localhost:3000
-Dokumentacja API
+```
+
+---
+
+# Dokumentacja API
 
 Swagger UI dostępny jest pod adresem:
 
+```txt
 http://localhost:3000/api-docs
+```
 
 Swagger umożliwia testowanie endpointów REST API bez użycia dodatkowych narzędzi.
 
-Endpointy
-User
+---
+
+# Endpointy
+
+## User
+
+```http
 POST /user
 GET /user
 GET /user/:id
 PUT /user/:id
 DELETE /user/:id
-Auctions (planowane)
+```
+
+## Auctions (planowane)
+
+```http
 POST /auctions
 GET /auctions
 GET /auctions/:id
 PUT /auctions/:id
 DELETE /auctions/:id
-Bids (planowane)
+```
+
+## Bids (planowane)
+
+```http
 POST /auctions/:id/bids
-Baza danych
+```
 
-Projekt wykorzystuje bazę danych SQLite zarządzaną przez Prisma ORM.
+---
 
-Główne encje:
+# Baza danych
 
-User
-Auction
-Bid
+Projekt wykorzystuje bazę danych **SQLite** zarządzaną przez **Prisma ORM**.
 
-Relacje:
+## Główne encje
 
-użytkownik może posiadać wiele aukcji
-aukcja może posiadać wiele ofert
-użytkownik może składać wiele ofert
-Branching Strategy
+- User
+- Auction
+- Bid
+
+## Relacje
+
+- użytkownik może posiadać wiele aukcji
+- aukcja może posiadać wiele ofert
+- użytkownik może składać wiele ofert
+
+---
+
+# Branching Strategy
 
 Projekt wykorzystuje następującą strategię branchy:
 
-main – stabilna wersja projektu
-dev – branch developerski
-feature/* – branche funkcjonalności
-Uruchomienie w trybie developerskim
+- `main` – stabilna wersja projektu
+- `dev` – branch developerski
+- `feature/*` – branche funkcjonalności
+
+---
+
+# Uruchomienie w trybie developerskim
+
+```bash
 npm run dev
-Autorzy
+```
+
+---
+
+# Autorzy
 
 Projekt realizowany w ramach pracy zespołowej.
