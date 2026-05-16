@@ -4,28 +4,41 @@ Projekt zaliczeniowy z przedmiotu **Tworzenie usług sieciowych REST**.
 
 System umożliwia zarządzanie aukcjami internetowymi poprzez REST API. Użytkownicy mogą tworzyć konta, wystawiać przedmioty na aukcję oraz składać oferty.
 
-## Technologie
+---
+
+# Technologie
 
 Projekt wykorzystuje następujące technologie:
 
-* Node.js
-* Express.js
-* Prisma ORM
-* SQLite
-* Swagger (OpenAPI)
+- Node.js
+- Express.js
+- Prisma ORM
+- SQLite
+- Swagger / OpenAPI
 
-## Funkcjonalności
+---
 
-System umożliwia:
+# Funkcjonalności
 
-* rejestrację użytkowników
-* zarządzanie użytkownikami
-* tworzenie aukcji
-* przeglądanie dostępnych aukcji
-* składanie ofert (licytację)
-* przechowywanie historii ofert
+Aktualnie zaimplementowano:
 
-## Architektura
+- zarządzanie użytkownikami
+- REST API
+- dokumentację Swagger
+- architekturę warstwową
+- integrację z bazą danych SQLite
+
+Planowane funkcjonalności:
+
+- tworzenie aukcji
+- przeglądanie aukcji
+- składanie ofert (licytacja)
+- historia ofert
+- filtrowanie aukcji
+
+---
+
+# Architektura
 
 Projekt wykorzystuje architekturę warstwową:
 
@@ -33,121 +46,91 @@ Controller → Service → Repository → Database
 
 Opis warstw:
 
-* **Controller** – obsługa zapytań HTTP
-* **Service** – logika biznesowa
-* **Repository** – komunikacja z bazą danych
-* **Database** – SQLite zarządzane przez Prisma
+- **Controller** – obsługa zapytań HTTP
+- **Service** – logika biznesowa
+- **Repository** – komunikacja z bazą danych
+- **Database** – SQLite zarządzane przez Prisma ORM
 
-## Struktura projektu
+---
 
-```
+# Struktura projektu
+
+```txt
 src
-├ controllers
-├ services
-├ repositories
-├ routes
-├ config
-└ app.js
+├── controllers
+├── services
+├── repositories
+├── routes
+├── config
+└── app.js
 
 prisma
-├ schema.prisma
-└ dev.db
-```
+└── schema.prisma
 
-## Instalacja
-
-1. Sklonuj repozytorium:
-
-```
+server.js
+Instalacja
+1. Sklonuj repozytorium
 git clone <repo-url>
 cd <repo-folder>
-```
-
-2. Zainstaluj zależności:
-
-```
+2. Zainstaluj zależności
 npm install
-```
-
-3. Uruchom aplikację:
-
-```
+3. Wygeneruj Prisma Client
+npx prisma generate
+4. Utwórz bazę danych
+npx prisma db push
+5. Uruchom aplikację
 npm run dev
-```
 
-Serwer uruchomi się na:
+Serwer uruchomi się pod adresem:
 
-```
 http://localhost:3000
-```
-
-## Dokumentacja API
+Dokumentacja API
 
 Swagger UI dostępny jest pod adresem:
 
-```
 http://localhost:3000/api-docs
-```
 
-Dokumentacja umożliwia testowanie endpointów REST API.
+Swagger umożliwia testowanie endpointów REST API bez użycia dodatkowych narzędzi.
 
-## Endpointy
-
-### Users
-
-```
-POST /users
-GET /users/:id
-PUT /users/:id
-DELETE /users/:id
-GET /users
-```
-
-### Auctions
-
-```
+Endpointy
+User
+POST /user
+GET /user
+GET /user/:id
+PUT /user/:id
+DELETE /user/:id
+Auctions (planowane)
 POST /auctions
 GET /auctions
 GET /auctions/:id
 PUT /auctions/:id
 DELETE /auctions/:id
-```
-
-### Bids
-
-```
+Bids (planowane)
 POST /auctions/:id/bids
-```
+Baza danych
 
-## Baza danych
-
-Projekt wykorzystuje **SQLite** jako bazę danych.
-Plik bazy (`dev.db`) znajduje się w repozytorium w folderze:
-
-```
-prisma/dev.db
-```
-
-Baza danych jest zarządzana przez **Prisma ORM**.
+Projekt wykorzystuje bazę danych SQLite zarządzaną przez Prisma ORM.
 
 Główne encje:
 
-* User
-* Auction
-* Bid
+User
+Auction
+Bid
 
 Relacje:
 
-* użytkownik może posiadać wiele aukcji
-* aukcja może mieć wiele ofert
-* użytkownik może składać wiele ofert
+użytkownik może posiadać wiele aukcji
+aukcja może posiadać wiele ofert
+użytkownik może składać wiele ofert
+Branching Strategy
 
-## Uruchomienie w trybie developerskim
+Projekt wykorzystuje następującą strategię branchy:
 
-```
+main – stabilna wersja projektu
+dev – branch developerski
+feature/* – branche funkcjonalności
+Uruchomienie w trybie developerskim
 npm run dev
-```
-
-## Autorzy
+Autorzy
 
 Projekt realizowany w ramach pracy zespołowej.
