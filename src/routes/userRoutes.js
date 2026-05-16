@@ -18,6 +18,27 @@ router.get("/", userController.getAllUsers)
 
 /**
  * @swagger
+ * /user/{id}:
+ *   get:
+ *     summary: Get user by ID
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: User found
+ *       404:
+ *         description: User not found
+ */
+router.get("/:id", userController.getUser)
+
+/**
+ * @swagger
  * /user:
  *   post:
  *     summary: Create a new user
@@ -42,10 +63,55 @@ router.get("/", userController.getAllUsers)
  */
 router.post("/", userController.createUser)
 
-router.get("/:id", userController.getUser)
+/**
+ * @swagger
+ * /user/{id}:
+ *   put:
+ *     summary: Update user
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ */
 router.put("/:id", userController.updateUser)
-router.delete("/:id", userController.deleteUser)
 
-console.log("User working")
+/**
+ * @swagger
+ * /user/{id}:
+ *   delete:
+ *     summary: Delete user
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       204:
+ *         description: User deleted successfully
+ */
+router.delete("/:id", userController.deleteUser)
 
 module.exports = router
