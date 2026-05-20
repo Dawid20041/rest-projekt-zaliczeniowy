@@ -40,8 +40,57 @@ const createAuction = async ({
     })
 }
 
-const getAllAuctions = async () => {
-    return aukcjaRepo.getAllAuctions()
+const SORTABLE_FIELDS = ['title', 'category', 'startingPrice', 'currentPrice', 'startDate', 'endDate', 'status']
+
+const getAllAuctions = async (filters = {}) => {
+    const { category, status, minPrice, maxPrice, title, sortBy, order } = filters
+    const where = {}
+
+    if (category) {
+        where.category = category
+    }
+
+    if (status) {
+        where.status = status
+    }
+
+    if (title) {
+        where.title = { contains: title }
+    }
+
+    if (minPrice !== undefined || maxPrice !== undefined) {
+        where.currentPrice = {}
+
+        if (minPrice !== undefined) {
+            const n = Number(minPrice)
+            if (Number.isNaN(n)) throw new Error('minPrice must be a number')
+            where.currentPrice.gte = n
+        }
+
+        if (maxPrice !== undefined) {
+            const n = Number(maxPrice)
+            if (Number.isNaN(n)) throw new Error('maxPrice must be a number')
+            where.currentPrice.lte = n
+        }
+    }
+
+    let orderBy
+
+    if (sortBy !== undefined || order !== undefined) {
+        if (!sortBy) {
+            throw new Error('sortBy is required when order is provided')
+        }
+        if (!SORTABLE_FIELDS.includes(sortBy)) {
+            throw new Error(`sortBy must be one of: ${SORTABLE_FIELDS.join(', ')}`)
+        }
+        const direction = order === undefined ? 'asc' : order
+        if (direction !== 'asc' && direction !== 'desc') {
+            throw new Error('order must be "asc" or "desc"')
+        }
+        orderBy = { [sortBy]: direction }
+    }
+
+    return aukcjaRepo.getAllAuctions(where, orderBy)
 }
 
 const getAuction = async (id) => {

@@ -11,10 +11,10 @@ exports.createAuction = async (req, res) => {
 
 exports.getAllAuctions = async (req, res) => {
     try {
-        const auctions = await aukcjaService.getAllAuctions()
+        const auctions = await aukcjaService.getAllAuctions(req.query)
         res.json(auctions)
     } catch (err) {
-        res.status(500).json({ error: err.message })
+        res.status(400).json({ error: err.message })
     }
 }
 

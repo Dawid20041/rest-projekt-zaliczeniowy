@@ -5,7 +5,7 @@ const userController = require("../controllers/userController")
 
 /**
  * @swagger
- * /user:
+ * /users:
  *   get:
  *     summary: Get all users
  *     tags:
@@ -18,7 +18,7 @@ router.get("/", userController.getAllUsers)
 
 /**
  * @swagger
- * /user:
+ * /users:
  *   post:
  *     summary: Create a new user
  *     tags:
