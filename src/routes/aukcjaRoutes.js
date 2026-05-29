@@ -50,27 +50,45 @@ router.get("/:id", aukcjaController.getAuction)
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - title
+ *               - description
+ *               - category
+ *               - startingPrice
+ *               - currentPrice
+ *               - startDate
+ *               - endDate
+ *               - ownerId
  *             properties:
  *               title:
  *                 type: string
+ *                 example: Laptop Dell
  *               description:
  *                 type: string
+ *                 example: Laptop gamingowy
  *               category:
  *                 type: string
+ *                 example: Elektronika
  *               startingPrice:
  *                 type: number
+ *                 example: 1000
  *               currentPrice:
  *                 type: number
+ *                 example: 1000
  *               startDate:
  *                 type: string
  *                 format: date-time
+ *                 example: 2026-05-16T10:00:00.000Z
  *               endDate:
  *                 type: string
  *                 format: date-time
+ *                 example: 2026-06-20T10:00:00.000Z
  *               status:
  *                 type: string
+ *                 example: ACTIVE
  *               ownerId:
  *                 type: integer
+ *                 example: 1
  *     responses:
  *       201:
  *         description: Auction created successfully

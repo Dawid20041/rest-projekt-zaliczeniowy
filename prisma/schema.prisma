@@ -12,6 +12,7 @@ model User {
   email    String    @unique
   password String?
   auctions Auction[]
+  bids     Bid[]
 }
 
 model Auction {
@@ -25,5 +26,16 @@ model Auction {
   endDate       DateTime
   status        String   @default("ACTIVE")
   ownerId       Int
-  owner         User     @relation(fields: [ownerId], references: [id])
+  owner         User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  bids          Bid[]
+}
+
+model Bid {
+  id        Int      @id @default(autoincrement())
+  amount    Float
+  createdAt DateTime @default(now())
+  auctionId Int
+  auction   Auction  @relation(fields: [auctionId], references: [id])
+  bidderId  Int
+  bidder    User     @relation(fields: [bidderId], references: [id])
 }

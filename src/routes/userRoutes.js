@@ -5,7 +5,7 @@ const userController = require("../controllers/userController")
 
 /**
  * @swagger
- * /user:
+ * /users:
  *   get:
  *     summary: Get all users
  *     tags:
