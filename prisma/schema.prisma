@@ -26,7 +26,7 @@ model Auction {
   endDate       DateTime
   status        String   @default("ACTIVE")
   ownerId       Int
-  owner         User     @relation(fields: [ownerId], references: [id])
+  owner         User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   bids          Bid[]
 }
 

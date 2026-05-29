@@ -12,7 +12,21 @@ const getAllAuctions = (where = {}, orderBy = undefined) => {
 
 const updateAuction = (id, data) => {return prisma.auction.update({where: { id: Number(id) }, data})}
 
-const deleteAuction = (id) => {return prisma.auction.delete({where: { id: Number(id) }})}
+const deleteAuction = async (id) => {
+  const auctionId = Number(id)
+
+  await prisma.bid.deleteMany({
+    where: {
+      auctionId: auctionId
+    }
+  })
+
+  return prisma.auction.delete({
+    where: {
+      id: auctionId
+    }
+  })
+}
 
 module.exports = {
     createAuction,
