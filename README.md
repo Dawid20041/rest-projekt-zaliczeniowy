@@ -2,11 +2,11 @@
 
 Projekt zaliczeniowy z przedmiotu **Tworzenie usług sieciowych REST**.
 
-System umożliwia zarządzanie aukcjami internetowymi poprzez REST API. Użytkownicy mogą tworzyć konta, wystawiać przedmioty na aukcję oraz składać oferty.
+System umożliwia zarządzanie aukcjami internetowymi poprzez REST API. Użytkownicy mogą tworzyć konta, wystawiać przedmioty na aukcję, przeglądać aukcje oraz składać oferty w ramach licytacji.
 
 ---
 
-# Technologie
+## Technologie
 
 Projekt wykorzystuje następujące technologie:
 
@@ -15,47 +15,59 @@ Projekt wykorzystuje następujące technologie:
 - Prisma ORM
 - SQLite
 - Swagger / OpenAPI
+- bcrypt
 
 ---
 
-# Aktualnie zaimplementowane funkcjonalności
+## Aktualnie zaimplementowane funkcjonalności
 
-## Users
+### Users
 
 - tworzenie użytkownika
 - pobieranie wszystkich użytkowników
 - pobieranie użytkownika po ID
 - edycja użytkownika
 - usuwanie użytkownika
-- hashowanie haseł przy użyciu bcrypt
+- hashowanie hasła przy użyciu bcrypt
 
-## Auctions
+### Auctions
 
 - tworzenie aukcji
 - pobieranie wszystkich aukcji
 - pobieranie aukcji po ID
 - edycja aukcji
 - usuwanie aukcji
+- powiązanie aukcji z właścicielem
 
-## Swagger / OpenAPI
+### Bids
+
+- składanie ofert do aukcji
+- pobieranie historii ofert dla aukcji
+- sprawdzanie, czy oferta jest wyższa od aktualnej ceny
+- sprawdzanie, czy aukcja nadal trwa
+- aktualizacja aktualnej ceny aukcji po złożeniu oferty
+- przechowywanie historii ofert
+
+### Swagger / OpenAPI
 
 - dokumentacja endpointów
-- możliwość testowania API z poziomu Swagger UI
+- możliwość testowania API z poziomu przeglądarki
+- dostęp do wszystkich głównych operacji systemu
 
 ---
 
-# Planowane funkcjonalności
+## Planowane funkcjonalności
 
-- składanie ofert (licytacja)
-- historia ofert
-- filtrowanie aukcji
-- sortowanie aukcji
+- prosty frontend aplikacji
+- filtrowanie aukcji po kategorii lub statusie
+- sortowanie wyników
 - autoryzacja JWT
-- frontend aplikacji
+- testy jednostkowe
+- konteneryzacja Docker
 
 ---
 
-# Architektura
+## Architektura
 
 Projekt wykorzystuje architekturę warstwową:
 
@@ -63,62 +75,64 @@ Projekt wykorzystuje architekturę warstwową:
 Controller → Service → Repository → Database
 ```
 
-## Opis warstw
+### Opis warstw
 
-- **Controller** – obsługa zapytań HTTP
-- **Service** – logika biznesowa
+- **Controller** – obsługa zapytań HTTP i odpowiedzi API
+- **Service** – logika biznesowa aplikacji
 - **Repository** – komunikacja z bazą danych
 - **Database** – SQLite zarządzane przez Prisma ORM
 
 ---
 
-# Struktura projektu
+## Struktura projektu
 
 ```txt
 src
+├── config
 ├── controllers
-├── services
 ├── repositories
 ├── routes
-├── config
+├── services
 └── app.js
 
 prisma
 └── schema.prisma
 
 server.js
+package.json
+README.md
 ```
 
 ---
 
-# Instalacja
+## Instalacja i uruchomienie
 
-## 1. Sklonuj repozytorium
+### 1. Sklonuj repozytorium
 
 ```bash
 git clone <repo-url>
 cd <repo-folder>
 ```
 
-## 2. Zainstaluj zależności
+### 2. Zainstaluj zależności
 
 ```bash
 npm install
 ```
 
-## 3. Wygeneruj Prisma Client
+### 3. Wygeneruj Prisma Client
 
 ```bash
 npx prisma generate
 ```
 
-## 4. Utwórz bazę danych
+### 4. Utwórz lokalną bazę danych SQLite
 
 ```bash
 npx prisma db push
 ```
 
-## 5. Uruchom aplikację
+### 5. Uruchom aplikację
 
 ```bash
 npm run dev
@@ -132,7 +146,7 @@ http://localhost:3000
 
 ---
 
-# Dokumentacja API
+## Dokumentacja API
 
 Swagger UI dostępny jest pod adresem:
 
@@ -140,77 +154,122 @@ Swagger UI dostępny jest pod adresem:
 http://localhost:3000/api-docs
 ```
 
-Swagger umożliwia testowanie endpointów REST API bez użycia dodatkowych narzędzi.
+Swagger umożliwia testowanie endpointów REST API bez użycia dodatkowych narzędzi, takich jak Postman.
 
 ---
 
-# Endpointy
+## Endpointy API
 
-## User
+### User
 
 ```http
-POST /user
-GET /user
-GET /user/:id
-PUT /user/:id
+POST   /user
+GET    /user
+GET    /user/:id
+PUT    /user/:id
 DELETE /user/:id
 ```
 
-## Auctions
+### Auctions
 
 ```http
-POST /auctions
-GET /auctions
-GET /auctions/:id
-PUT /auctions/:id
+POST   /auctions
+GET    /auctions
+GET    /auctions/:id
+PUT    /auctions/:id
 DELETE /auctions/:id
 ```
 
-## Bids (planowane)
+### Bids
 
 ```http
-POST /auctions/:id/bids
-GET /auctions/:id/bids
+POST   /auctions/:id/bids
+GET    /auctions/:id/bids
 ```
 
 ---
 
-# Baza danych
+## Przykładowe dane testowe
+
+### Utworzenie użytkownika
+
+```json
+{
+  "username": "Dawid",
+  "email": "dawid@test.com",
+  "password": "123456"
+}
+```
+
+### Utworzenie aukcji
+
+```json
+{
+  "title": "Laptop Dell",
+  "description": "Laptop gamingowy",
+  "category": "Elektronika",
+  "startingPrice": 1000,
+  "currentPrice": 1000,
+  "startDate": "2026-05-16T10:00:00.000Z",
+  "endDate": "2026-06-20T10:00:00.000Z",
+  "status": "ACTIVE",
+  "ownerId": 1
+}
+```
+
+### Złożenie oferty
+
+```json
+{
+  "userId": 1,
+  "amount": 1200
+}
+```
+
+---
+
+## Baza danych
 
 Projekt wykorzystuje bazę danych **SQLite** zarządzaną przez **Prisma ORM**.
 
-## Główne encje
+Plik bazy danych `dev.db` generowany jest lokalnie i nie powinien być commitowany do repozytorium.
+
+### Główne encje
 
 - User
 - Auction
 - Bid
 
-## Relacje
+### Relacje
 
 - użytkownik może posiadać wiele aukcji
-- aukcja może posiadać wiele ofert
 - użytkownik może składać wiele ofert
+- aukcja może posiadać wiele ofert
+- oferta należy do jednej aukcji i jednego użytkownika
 
 ---
 
-# Branching Strategy
+## Przykładowy scenariusz działania
+
+1. Utworzenie użytkownika przez `POST /user`.
+2. Utworzenie aukcji przez `POST /auctions`.
+3. Pobranie listy aukcji przez `GET /auctions`.
+4. Złożenie oferty przez `POST /auctions/:id/bids`.
+5. Sprawdzenie historii ofert przez `GET /auctions/:id/bids`.
+6. Sprawdzenie, czy aktualna cena aukcji została zaktualizowana przez `GET /auctions/:id`.
+
+---
+
+## Branching Strategy
 
 Projekt wykorzystuje następującą strategię branchy:
 
 - `main` – stabilna wersja projektu
 - `dev` – branch developerski
-- `feature/*` – branche funkcjonalności
+- `feature/*` – branche dla konkretnych funkcjonalności
 
 ---
 
-# Uruchomienie w trybie developerskim
-
-```bash
-npm run dev
-```
-
----
-
-# Autorzy
+## Autorzy
 
 Projekt realizowany w ramach pracy zespołowej.
