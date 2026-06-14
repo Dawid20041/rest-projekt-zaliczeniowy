@@ -56,17 +56,6 @@ Projekt wykorzystuje następujące technologie:
 
 ---
 
-## Planowane funkcjonalności
-
-- prosty frontend aplikacji
-- filtrowanie aukcji po kategorii lub statusie
-- sortowanie wyników
-- autoryzacja JWT
-- testy jednostkowe
-- konteneryzacja Docker
-
----
-
 ## Architektura
 
 Projekt wykorzystuje architekturę warstwową:
@@ -272,4 +261,4 @@ Projekt wykorzystuje następującą strategię branchy:
 
 ## Autorzy
 
-Projekt realizowany w ramach pracy zespołowej.
+Dawid Żmudzki, Michał Zakowicz, Michał Słomiński, Dominik Stawicki
