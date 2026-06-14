@@ -2,7 +2,7 @@
 
 Projekt zaliczeniowy z przedmiotu **Tworzenie usług sieciowych REST**.
 
-System umożliwia zarządzanie aukcjami internetowymi poprzez REST API. Użytkownicy mogą tworzyć konta, wystawiać przedmioty na aukcję, przeglądać aukcje oraz składać oferty w ramach licytacji.
+System umożliwia obsługę użytkowników, aukcji oraz ofert poprzez REST API. Użytkownicy są reprezentowani jako zasoby API, które można tworzyć, edytować, pobierać i usuwać. Aplikacja pozwala także na wystawianie aukcji oraz składanie ofert w ramach licytacji.
 
 ---
 
